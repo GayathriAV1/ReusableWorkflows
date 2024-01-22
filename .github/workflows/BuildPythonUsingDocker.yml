@@ -16,7 +16,10 @@ on:
         type: string
       python_test_framework:
         required: true
-        type: string        
+        type: string   
+      req_file_path:
+        required: true
+        type: string
     secrets:
       registry_username:
         required: true
@@ -36,7 +39,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install ${{inputs.python_linter}} ${{inputs.python_test_framework}}
-          if [ -f dir1/requirements.txt ]; then pip install -r dir1/requirements.txt; fi
+          if [ -f ${{inputs.req_file_path}}requirements.txt ]; then pip install -r ${{inputs.req_file_path}}dir1/requirements.txt; fi
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
